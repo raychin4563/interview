@@ -57,6 +57,7 @@ libraryDependencies ++= Seq(
   Libraries.http4sDsl,
   Libraries.http4sServer,
   Libraries.http4sCirce,
+  Libraries.http4sClient,
   Libraries.circeCore,
   Libraries.circeGeneric,
   Libraries.circeGenericExt,
@@ -65,5 +66,6 @@ libraryDependencies ++= Seq(
   Libraries.logback,
   Libraries.scalaTest        % Test,
   Libraries.scalaCheck       % Test,
-  Libraries.catsScalaCheck   % Test
+  Libraries.catsScalaCheck   % Test,
+  Libraries.wireMock         % Test
 )
