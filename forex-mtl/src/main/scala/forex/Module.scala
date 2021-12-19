@@ -12,7 +12,7 @@ import org.http4s.server.middleware.{AutoSlash, Timeout}
 
 class Module[F[_]: ConcurrentEffect: Timer](config: ApplicationConfig, client: Client[F]) {
 
-  private val ratesService: RatesService[F] = RatesServices.concrete[F](config, client)
+  private val ratesService: RatesService[F] = RatesServices.cached[F](RatesServices.concrete[F](config, client))
 
   private val ratesProgram: RatesProgram[F] = RatesProgram[F](ratesService)
 

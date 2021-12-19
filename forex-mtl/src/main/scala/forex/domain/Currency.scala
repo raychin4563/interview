@@ -39,4 +39,15 @@ object Currency {
     case "USD" => USD
   }
 
+  def allCurrency(): Seq[Currency] = Seq(
+    AUD,
+    CAD,
+    CHF,
+    EUR,
+    GBP,
+    NZD,
+    JPY,
+    SGD,
+    USD
+  )
 }
