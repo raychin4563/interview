@@ -11,4 +11,7 @@ object Interpreters {
 
   def concrete[F[_]: Sync](config: ApplicationConfig, client: Client[F]): Algebra[F] =
     OneFrameInterpreter[F](config, client)
+
+  def cached[F[_]: Sync](delegate: Algebra[F]): Algebra[F] =
+    OneFrameCache[F](delegate)
 }
