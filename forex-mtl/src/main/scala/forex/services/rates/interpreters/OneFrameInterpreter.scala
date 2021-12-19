@@ -84,6 +84,24 @@ class OneFrameInterpreter[F[_]: Sync](config: OneFrameConfig, client: Client[F])
     }
     oneFrameRateT.value
   }
+
+  override def getRates(pairs: Seq[Rate.Pair]): F[Either[errors.Error, Seq[Rate]]] = {
+    val queryParams = pairs.map(p => ("pair", Some(p.from.toString + p.to.toString))).toVector
+    val request = Request[F](
+      Method.GET,
+      Uri(
+        Some(http),
+        Some(Authority(None, RegName(config.host), Some(config.port))),
+        config.api.getRatePath,
+        Query.fromVector(queryParams),
+        None
+      ),
+      headers = Headers.of(Header("token", config.token))
+    )
+    EitherT(sendRequest(request))
+      .map(_.map(p => p.asRate))
+      .value
+  }
 }
 
 object OneFrameInterpreter {
